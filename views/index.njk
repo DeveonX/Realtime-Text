@@ -1,0 +1,42 @@
+{% extends "base.njk" %}
+
+{% block head %}
+    {# socket script #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/index-script.js"></script>
+    <script>
+        // get name
+        const name = {{name | dump | safe}};
+    </script>
+
+
+    {# link css #}
+    <link rel="stylesheet" href="css/index-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lumanosimo&display=swap" rel="stylesheet">
+{% endblock head %}
+
+
+{% block body %}
+<div class="chatapp" id="chatapp">
+    {% for chat_item in arrayOfMessages %}
+    {% if chat_item.name != '' and chat_item.text != '' %}
+        <div class="chat-item">
+            <div class="name">
+                {{chat_item.name}}
+            </div>
+            <div class="text">
+            {{chat_item.text}}
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="messagebox">
+    <input type="text" name="messagebox" id="textbox" placeholder="Enter message to send">
+    <button onclick="send_message()" class="send" id="send">Send</button>
+</div>
+
+{% endblock body %}
